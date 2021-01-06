@@ -26,7 +26,6 @@ module.exports = {
     'comma-dangle': ['error', 'only-multiline'],
     'object-curly-newline': 0,
     'import/prefer-default-export': 'off',
-    'import/no-default-export': 'error',
     'react/react-in-jsx-scope': 'off',
   },
 };
