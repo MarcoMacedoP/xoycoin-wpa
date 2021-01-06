@@ -1,6 +1,5 @@
 import { Views } from './views';
 
-function App() {
+export function App() {
   return <Views />;
 }
-export default App;
