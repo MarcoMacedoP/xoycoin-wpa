@@ -1,22 +1,40 @@
+import { useHistory } from 'react-router-dom';
+import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
-import { Link } from 'react-router-dom';
+export function Button(props) {
+  const { label, onClick, type, url } = props;
+  const history = useHistory();
 
-export function Button({ label = 'Continue', onClick, type = 'default', url }) {
-  const isUrl = url;
-
-  const Wrapper = ({ children, className }) =>
-    isUrl ? (
-      <Link to={url} className={className}>
-        {children}
-      </Link>
-    ) : (
-      <button className={className}>{children}</button>
-    );
+  const handleClick = () => {
+    if (type === 'disabled') return;
+    if (url) {
+      history.push(url);
+    } else {
+      onClick();
+    }
+  };
 
   return (
-    <Wrapper className={`${styles.wrapper} ${styles[`wrapper-${type}`]}`}>
+    <button
+      type="button"
+      className={`${styles.wrapper} ${styles[`wrapper-${type}`]}`}
+      onClick={handleClick}
+    >
       <span className={styles.label}>{label}</span>
-    </Wrapper>
+    </button>
   );
 }
+
+Button.defaultProps = {
+  onClick: () => {},
+  type: 'default',
+  url: undefined,
+};
+
+Button.propTypes = {
+  label: PropTypes.string.isRequired,
+  onClick: PropTypes.func,
+  type: PropTypes.oneOf(['default', 'primary', 'disabled']),
+  url: PropTypes.string,
+};

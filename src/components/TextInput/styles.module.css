@@ -1,0 +1,25 @@
+.wrapper {
+  margin: 0 0 1rem;
+  transition: margin 200ms ease-in;
+}
+.wrapper:focus-within {
+  margin: 1rem 0rem 2rem;
+}
+.label {
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.input {
+  width: 100%;
+  background-color: var(--color-gray);
+  min-height: 2.5rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+  font-size: 1rem;
+  border: none;
+  outline: 1px solid transparent;
+  transition: outline 200ms linear;
+}
+.input:focus {
+  outline: 2px solid var(--color-primary);
+}
