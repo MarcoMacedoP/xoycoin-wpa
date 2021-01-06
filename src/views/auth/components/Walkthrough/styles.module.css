@@ -1,0 +1,35 @@
+.carousel {
+  margin-bottom: 2rem;
+}
+.carousel li {
+  background-color: transparent !important;
+}
+
+.item {
+  height: calc(80vh - 2rem);
+}
+.item img {
+  object-fit: contain;
+  object-position: center;
+  height: 70%;
+}
+.indicator {
+  width: 1rem;
+  height: 1rem;
+  margin: 0 0.25rem;
+  display: inline-block;
+  background-color: var(--color-gray);
+  border-radius: 50%;
+  cursor: pointer;
+  transition-duration: 200ms;
+  transition-timing-function: ease-in;
+  transition-property: opacity, background-color;
+}
+.indicator:hover {
+  opacity: 0.5;
+}
+
+.indicatorSelected {
+  composes: indicator;
+  background-color: var(--color-primary);
+}

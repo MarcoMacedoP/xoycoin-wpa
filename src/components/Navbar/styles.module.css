@@ -1,0 +1,13 @@
+.container {
+  display: flex;
+  align-items: center;
+}
+
+.backButton {
+  cursor: pointer;
+  padding: 1rem 1rem 1rem 0rem;
+}
+
+.title {
+  font-weight: bold;
+}

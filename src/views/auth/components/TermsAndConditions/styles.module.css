@@ -1,0 +1,7 @@
+.termsWrapper {
+  height: 70vh;
+  overflow-y: scroll;
+}
+.acceptTerms {
+  margin: 2rem 0 1rem;
+}
