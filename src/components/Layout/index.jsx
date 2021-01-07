@@ -1,10 +1,16 @@
+import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
-export function Layout({ header, children }) {
+function Layout({ children }) {
   return (
     <div className={styles.container}>
-      {header}
       <main className={styles.content}>{children}</main>
     </div>
   );
 }
+
+Layout.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
+export default Layout;

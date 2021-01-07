@@ -3,9 +3,7 @@ module.exports = {
     browser: true,
     es2021: true,
   },
-  extends: [
-    // 'plugin:react/recommended', //'airbnb'
-  ],
+  extends: ['plugin:react/recommended', 'airbnb'],
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -14,18 +12,37 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', 'prettier'],
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['src'],
+      },
+    },
+  },
   rules: {
-    'react/prop-types': 0,
-    'import/order': 0,
-    'no-unused-vars': 0,
-    'jsx-a11y/click-events-have-key-events': 0,
-    'jsx-a11y/no-static-element-interactions': 0,
+    'react/prop-types': 1,
     'react/jsx-filename-extension': 0,
     'prettier/prettier': 'error',
     'implicit-arrow-linebreak': 0,
     'comma-dangle': ['error', 'only-multiline'],
     'object-curly-newline': 0,
-    'import/prefer-default-export': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/no-danger': 0,
+    'jsx-a11y/label-has-associated-control': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
+    'jsx-a11y/label-has-for': [
+      'error',
+      {
+        required: {
+          some: ['nesting', 'id'],
+        },
+      },
+    ],
   },
 };

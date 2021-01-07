@@ -1,11 +1,11 @@
 import { Switch, Route, useRouteMatch } from 'react-router-dom';
-import { Walkthrough } from './components/Walkthrough';
-import { SetPassword } from './components/SetPassword';
-import { TermsAndConditions } from './components/TermsAndConditions';
-import { ImportWallet } from './components/ImportWallet';
-import { Layout } from '../../components/Layout';
+import Layout from 'Components/Layout';
+import Walkthrough from './Components/Walkthrough';
+import SetPassword from './Components/SetPassword';
+import TermsAndConditions from './Components/TermsAndConditions';
+import ImportWallet from './Components/ImportWallet';
 
-export function Auth() {
+function Auth() {
   const match = useRouteMatch();
 
   return (
@@ -30,3 +30,5 @@ export function Auth() {
     </Layout>
   );
 }
+
+export default Auth;

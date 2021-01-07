@@ -1,61 +1,17 @@
-import { useState, useMemo } from 'react';
+import { useState } from 'react';
 import { useHistory } from 'react-router-dom';
-import { Navbar } from '../../../../components/Navbar';
-import { Button } from '../../../../components/Button';
-import { TextInput } from '../../../../components/TextInput';
-import { useQueryParams } from '../../../../hooks/useQueryParams';
-import { PasswordValidationLabel } from '../PasswordValidationLabel';
+import Navbar from 'Components/Navbar';
+import Button from 'Components/Button';
+import TextInput from 'Components/TextInput';
+import PasswordValidationLabel from 'Views/Auth/Components/PasswordValidationLabel';
+
+import useQueryParams from 'Hooks/useQueryParams';
+import usePasswordValidation from 'Hooks/usePasswordValidation';
+
 import styles from './styles.module.css';
 
-const passwordValidations = {
-  hasLowerCase: /(.*[a-z].*)/,
-  hasUpperCase: /(.*[A-Z].*)/,
-  hasNumber: /(.*[0-9].*)/,
-  hasSpecialCharacter: /(.*[!#$%&@?¿¡_ -].*)/,
-  eightToThirtyTwoCharacters: /^.{8,32}$/,
-};
-const usePasswordValidation = () => {
-  const [{ password, repeatPassword }, setState] = useState({
-    password: '',
-    repeatPassword: '',
-  });
-
-  const validations = useMemo(() => {
-    const entries = Object.entries(passwordValidations).map(([key]) => [
-      key,
-      passwordValidations[key].test(password),
-    ]);
-    return Object.fromEntries(entries);
-  }, [password]);
-
-  const allValidationsAreSuccess = useMemo(
-    () => Object.values(validations).every((result) => result === true),
-    [validations]
-  );
-
-  const handleChange = (event) => {
-    setState((state) => ({
-      ...state,
-      [event.target.name]: event.target.value,
-    }));
-  };
-
-  return {
-    handleChange,
-    validations: { ...validations, allSuccess: allValidationsAreSuccess },
-    password,
-    repeatPassword,
-    setState,
-  };
-};
-
-export function SetPassword() {
-  const {
-    password,
-    repeatPassword,
-    handleChange,
-    validations,
-  } = usePasswordValidation();
+function SetPassword() {
+  const { values, handleChange, validations } = usePasswordValidation();
   const [step, setStep] = useState(0);
   const params = useQueryParams();
   const history = useHistory();
@@ -80,7 +36,7 @@ export function SetPassword() {
             label="Please set a security password"
             name="password"
             type="password"
-            value={password}
+            value={values.password}
             onChange={handleChange}
           />
           <div className={styles.validations}>
@@ -117,17 +73,19 @@ export function SetPassword() {
             label="Repeat password"
             name="repeatPassword"
             type="password"
-            value={repeatPassword}
+            value={values.repeatPassword}
             onChange={handleChange}
           />
           <div className={styles.validations}>
             <PasswordValidationLabel
               text="Passwords match"
-              isValid={password === repeatPassword}
+              isValid={values.password === values.repeatPassword}
             />
           </div>
           <Button
-            type={password === repeatPassword ? 'primary' : 'disabled'}
+            type={
+              values.password === values.repeatPassword ? 'primary' : 'disabled'
+            }
             label="Continue"
             onClick={handleSubmit}
           />
@@ -136,3 +94,4 @@ export function SetPassword() {
     </>
   );
 }
+export default SetPassword;

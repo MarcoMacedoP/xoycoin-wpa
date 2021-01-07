@@ -1,8 +1,9 @@
 import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
+
 import styles from './styles.module.css';
 
-export function Button(props) {
+function Button(props) {
   const { label, onClick, type, url } = props;
   const history = useHistory();
 
@@ -38,3 +39,5 @@ Button.propTypes = {
   type: PropTypes.oneOf(['default', 'primary', 'disabled']),
   url: PropTypes.string,
 };
+
+export default Button;

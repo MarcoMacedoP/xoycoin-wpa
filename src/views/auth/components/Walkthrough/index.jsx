@@ -1,52 +1,15 @@
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import styles from './styles.module.css';
 import { Carousel } from 'react-responsive-carousel';
-import { Text } from '../../../../components/Text';
-import { Button } from '../../../../components/Button';
+import Text from 'Components/Text';
+import Button from 'Components/Button';
 
-import firstImage from '../../../../assets/tutorial_one.png';
-import secondImage from '../../../../assets/tutorial_two.png';
-import thirdImage from '../../../../assets/tutorial_three.png';
-import fourImage from '../../../../assets/tutorial_four.png';
+import firstImage from 'Assets/tutorial_one.png';
+import secondImage from 'Assets/tutorial_two.png';
+import thirdImage from 'Assets/tutorial_three.png';
+import fourImage from 'Assets/tutorial_four.png';
 
-export function Walkthrough() {
-  return (
-    <>
-      <Carousel
-        swipeable
-        emulateTouch
-        showThumbs={false}
-        className={styles.carousel}
-        showArrows={false}
-        showStatus={false}
-        renderIndicator={(onClick, isSelected, index) => (
-          <span
-            onClick={onClick}
-            className={isSelected ? styles.indicatorSelected : styles.indicator}
-          ></span>
-        )}
-      >
-        {data.map((item) => (
-          <section className={styles.item}>
-            <img src={item.image} alt="" />
-            <Text type="title">{item.title} </Text>
-            <p>{item.desc}</p>
-          </section>
-        ))}
-      </Carousel>
-      <Button
-        label="Create wallet"
-        url="/auth/terms?action=create"
-        type="primary"
-      />
-      <Button
-        label="Import wallet"
-        url="/auth/terms?action=import"
-        type="secondary"
-      />
-    </>
-  );
-}
+import styles from './styles.module.css';
+
 const data = [
   {
     image: firstImage,
@@ -72,3 +35,45 @@ const data = [
       'Full control over assets by managing private keys independently. Produced by Xoy Coin security team',
   },
 ];
+function Walkthrough() {
+  return (
+    <>
+      <Carousel
+        swipeable
+        emulateTouch
+        showThumbs={false}
+        className={styles.carousel}
+        showArrows={false}
+        showStatus={false}
+        renderIndicator={(onClick, isSelected) => (
+          <button
+            aria-label="slide indicator"
+            type="button"
+            onClick={onClick}
+            className={isSelected ? styles.indicatorSelected : styles.indicator}
+          />
+        )}
+      >
+        {data.map((item) => (
+          <section className={styles.item}>
+            <img src={item.image} alt="" />
+            <Text type="title">{item.title}</Text>
+            <p>{item.desc}</p>
+          </section>
+        ))}
+      </Carousel>
+      <Button
+        label="Create wallet"
+        url="/auth/terms?action=create"
+        type="primary"
+      />
+      <Button
+        label="Import wallet"
+        url="/auth/terms?action=import"
+        type="secondary"
+      />
+    </>
+  );
+}
+
+export default Walkthrough;

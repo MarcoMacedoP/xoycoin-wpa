@@ -1,7 +1,7 @@
-import { Navbar } from '../../../../components/Navbar';
-import { TextInput } from '../../../../components/TextInput';
+import Navbar from 'Components/Navbar';
+import TextInput from 'Components/TextInput';
 
-export function ImportWallet() {
+function ImportWallet() {
   return (
     <>
       <Navbar title="Import Wallet" />
@@ -9,3 +9,4 @@ export function ImportWallet() {
     </>
   );
 }
+export default ImportWallet;

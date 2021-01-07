@@ -1,6 +1,7 @@
+import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
-export function PasswordValidationLabel({ isValid = false, text }) {
+function PasswordValidationLabel({ isValid = false, text }) {
   return (
     <div className={styles.container}>
       {isValid ? (
@@ -31,3 +32,9 @@ export function PasswordValidationLabel({ isValid = false, text }) {
     </div>
   );
 }
+PasswordValidationLabel.propTypes = {
+  isValid: PropTypes.bool.isRequired,
+  text: PropTypes.string.isRequired,
+};
+
+export default PasswordValidationLabel;
