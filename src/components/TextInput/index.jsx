@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
-function TextInput({ label, type, value, onChange, name }) {
+function TextInput({ label, type, value, onChange, name, as, placeholder }) {
+  const Component = as;
   return (
     <div className={styles.wrapper}>
       <label htmlFor={name} className={styles.label}>
         {label}
       </label>
-      <input
+      <Component
+        style={{ height: as === 'textarea' ? '5rem' : '2rem' }}
         className={styles.input}
         type={type}
+        placeholder={placeholder}
         value={value}
         onChange={onChange}
         name={name}
@@ -21,6 +24,8 @@ function TextInput({ label, type, value, onChange, name }) {
 
 TextInput.defaultProps = {
   type: 'text',
+  as: 'input',
+  placeholder: '',
 };
 
 TextInput.propTypes = {
@@ -29,6 +34,8 @@ TextInput.propTypes = {
   value: PropTypes.string.isRequired,
   onChange: PropTypes.func.isRequired,
   name: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  as: PropTypes.elementType,
 };
 
 export default TextInput;

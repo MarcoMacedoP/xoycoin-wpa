@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  padding-top: 3rem;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.image {
+  width: 70%;
+  object-fit: contain;
+  object-position: center;
+  margin-bottom: 1rem;
+}
+.loader {
+  margin-bottom: 2rem;
+}

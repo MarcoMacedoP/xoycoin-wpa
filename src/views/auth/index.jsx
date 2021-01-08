@@ -4,6 +4,8 @@ import Walkthrough from './Components/Walkthrough';
 import SetPassword from './Components/SetPassword';
 import TermsAndConditions from './Components/TermsAndConditions';
 import ImportWallet from './Components/ImportWallet';
+import CreateWallet from './Components/CreateWallet';
+import LoadingWallet from './Components/LoadingWallet';
 
 function Auth() {
   const match = useRouteMatch();
@@ -21,7 +23,10 @@ function Auth() {
           <ImportWallet />
         </Route>
         <Route path={`${match.path}/create`}>
-          <p>Create wallet</p>
+          <CreateWallet />
+        </Route>
+        <Route path={`${match.path}/loading`}>
+          <LoadingWallet />
         </Route>
         <Route path={`${match.path}`}>
           <Walkthrough />

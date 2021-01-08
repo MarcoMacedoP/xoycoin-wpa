@@ -1,0 +1,57 @@
+.section {
+  margin-bottom: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.introduction {
+  composes: section;
+}
+.introduction img {
+  margin: 2rem 0;
+  object-fit: contain;
+  width: 40%;
+  position: relative;
+  left: 1rem;
+}
+.introduction p:nth-of-type(2) {
+  width: 90%;
+}
+.warning {
+  composes: section;
+}
+.warning p:nth-of-type(1) {
+  text-transform: uppercase;
+  text-align: justify;
+  margin-bottom: 1rem;
+}
+
+.warning img {
+  margin-bottom: 1rem;
+  width: 2rem;
+  object-fit: contain;
+}
+.phraseList {
+  margin: 2rem 0;
+  display: flex;
+  flex-wrap: wrap;
+}
+.phrase {
+  color: var(--color-primary);
+  padding: 0.75rem;
+  font-size: 0.75rem;
+  margin: 0.5rem;
+  background-color: #eef6ff;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  transition: color 200ms ease-in;
+}
+.backup {
+  composes: section;
+  margin-bottom: 0;
+}
+.backup textarea {
+  margin-top: 1rem;
+}

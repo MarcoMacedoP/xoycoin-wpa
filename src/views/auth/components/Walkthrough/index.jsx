@@ -57,8 +57,10 @@ function Walkthrough() {
         {data.map((item) => (
           <section className={styles.item}>
             <img src={item.image} alt="" />
-            <Text type="title">{item.title}</Text>
-            <p>{item.desc}</p>
+            <Text type="title" position="center">
+              {item.title}
+            </Text>
+            <Text position="center">{item.desc}</Text>
           </section>
         ))}
       </Carousel>
