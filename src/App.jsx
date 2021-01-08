@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 
 import Auth from 'Views/Auth';
+import Transfers from 'Views/Transfers';
 
 function App() {
   return (
@@ -13,6 +14,9 @@ function App() {
       <Switch>
         <Route path="/auth">
           <Auth />
+        </Route>
+        <Route path="/transfers">
+          <Transfers />
         </Route>
         <Route path="/">
           <Redirect to="/auth" />

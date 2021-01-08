@@ -1,0 +1,80 @@
+.container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  flex: 2.5;
+  background-color: var(--color-primary);
+  border-radius: 0 0 1.5rem 1.5rem;
+  color: white;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+}
+.header nav {
+  margin-bottom: 3rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.logo {
+  height: 2rem;
+  object-fit: contain;
+  object-position: center;
+}
+.header p {
+  font-size: 3rem;
+}
+.cashSymbol {
+  font-size: 1rem;
+  font-weight: normal;
+  margin-left: 0.5rem;
+  position: relative;
+  top: -0.5rem;
+}
+
+.currencys {
+  flex: 3;
+  padding: 0 1rem;
+  position: relative;
+  z-index: 2;
+  bottom: 2rem;
+}
+.currency {
+  cursor: pointer;
+  box-shadow: 5px 5px 28px -11px #000000;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0.5rem 1rem;
+  box-sizing: border-box;
+  border-radius: 0.4rem;
+  min-height: 3.5rem;
+  margin-bottom: 0.5rem;
+}
+.currency section {
+  display: flex;
+  align-items: center;
+}
+.currency img {
+  width: 2rem;
+  height: 2rem;
+  margin-right: 1rem;
+  object-fit: cover;
+  object-position: center;
+}
