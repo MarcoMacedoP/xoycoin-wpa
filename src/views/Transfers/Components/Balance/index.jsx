@@ -1,40 +1,34 @@
+import { useSelector, useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
+import { setCurrencyToTransfer } from 'Store/Transfers/actions';
 import Text from 'Components/Text';
-import tokenImage from 'Assets/token_icon.png';
-import ethIcon from 'Assets/ethereum_icon.png';
 import headerBackground from 'Assets/balance_background.png';
 import brandLogo from 'Assets/logo_mini.png';
 
 import styles from './styles.module.css';
 
-const CURRENCYS = [
-  {
-    name: 'XoyCoin',
-    type: 'XOY',
-    value: { original: '0.000000000', usd: '0.00' },
-    image: tokenImage,
-  },
-  {
-    type: 'ETH',
-    value: { original: '---', usd: '---' },
-    name: 'Ethereum',
-    image: ethIcon,
-  },
-];
-
 function Balance() {
+  const history = useHistory();
+  const currencys = useSelector((state) => state.currencys);
+  const dispatch = useDispatch();
+  const onCurrencyPress = (id) => {
+    dispatch(setCurrencyToTransfer(id));
+    history.push('/transfers/currency');
+  };
   return (
     <section className={styles.container}>
       <Header />
       <div className={styles.currencys}>
-        {CURRENCYS.map((currency) => (
+        {currencys.map((currency) => (
           <Currency
+            onClick={() => onCurrencyPress(currency.id)}
             image={currency.image}
             name={currency.name}
             value={currency.value}
             type={currency.type}
-            key={currency.type}
+            key={currency.id}
           />
         ))}
       </div>
@@ -84,9 +78,9 @@ function Header() {
     </header>
   );
 }
-function Currency({ image, name, value, type }) {
+function Currency({ image, name, value, type, onClick }) {
   return (
-    <div className={styles.currency}>
+    <button type="button" onClick={onClick} className={styles.currency}>
       <section>
         <img src={image} alt="" />
         <div>
@@ -102,7 +96,7 @@ function Currency({ image, name, value, type }) {
           {value.usd}
         </Text>
       </div>
-    </div>
+    </button>
   );
 }
 Currency.propTypes = {
@@ -113,5 +107,6 @@ Currency.propTypes = {
   }).isRequired,
   type: PropTypes.string.isRequired,
   image: PropTypes.string.isRequired,
+  onClick: PropTypes.func.isRequired,
 };
 export default Balance;

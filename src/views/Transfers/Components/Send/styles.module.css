@@ -1,0 +1,10 @@
+.send {
+  background-color: var(--color-gray);
+  padding: 0.75rem 1rem;
+  border-radius: 0.5rem;
+  margin-bottom: 1rem;
+  min-height: 120px;
+}
+.sendTitle {
+   color: var(--color-primary);
+}
