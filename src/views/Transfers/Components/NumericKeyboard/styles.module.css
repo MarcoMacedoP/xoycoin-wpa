@@ -1,0 +1,14 @@
+.container {
+  width: 100%;
+}
+.row {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+.number {
+  padding: 1rem;
+  font-size: 2rem;
+  flex: 1;
+  color: var(--color-primary);
+}

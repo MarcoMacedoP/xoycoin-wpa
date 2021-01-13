@@ -1,24 +1,21 @@
 import { useSelector } from 'react-redux';
 
-import Navbar from 'Components/Navbar';
+import { ComposedLayout as Layout } from 'Components/Layout';
 import Text from 'Components/Text';
 import Clipboard from 'Components/Clipboard';
 import Button from 'Components/Button';
 
+import { findSelectedCurrency } from 'Store/Transfers/selectors';
+
 import styles from './styles.module.css';
 
-function findCurrency(state) {
-  return state.currencys.find((c) => c.id === state.transfers.currencyId);
-}
-
 function CurrencyDetails() {
-  const currency = useSelector(findCurrency);
+  const currency = useSelector(findSelectedCurrency);
 
   if (!currency) return 'Currency not found';
 
   return (
-    <>
-      <Navbar title={currency.type} />
+    <Layout title={currency.type}>
       <div className={styles.header}>
         <img src={currency.image} alt="" className={styles.logo} />
         <Text type="title" className={styles.valueInToken}>
@@ -38,7 +35,7 @@ function CurrencyDetails() {
         <Button type="primary" label="Send" url="/transfers/set-quantity" />
         <Button type="secondary" label="Add fund" url="/transfers/found" />
       </section>
-    </>
+    </Layout>
   );
 }
 

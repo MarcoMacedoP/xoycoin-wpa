@@ -1,8 +1,6 @@
-.container {
+.content {
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 94vh;
 }
 
 .header {
@@ -10,7 +8,6 @@
   justify-content: center;
   align-items: center;
   flex-direction: column;
-  margin-bottom: 2rem;
   flex: 1;
 }
 
@@ -25,9 +22,10 @@
   width: 100%;
   padding: 1rem;
   border-radius: 1rem;
-  margin: 0 0 1rem;
+  margin: 2rem 0 1rem;
 }
 .keyboard {
   flex: 3;
   display: flex;
+  align-items: center;
 }

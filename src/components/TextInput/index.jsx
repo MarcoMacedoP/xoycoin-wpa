@@ -1,10 +1,19 @@
 import PropTypes from 'prop-types';
 import styles from './styles.module.css';
 
-function TextInput({ label, type, value, onChange, name, as, placeholder }) {
+function TextInput({
+  label,
+  type,
+  value,
+  onChange,
+  name,
+  as,
+  placeholder,
+  className,
+}) {
   const Component = as;
   return (
-    <div className={styles.wrapper}>
+    <div className={`${styles.wrapper} ${className}`}>
       <label htmlFor={name} className={styles.label}>
         {label}
       </label>
@@ -26,6 +35,7 @@ TextInput.defaultProps = {
   type: 'text',
   as: 'input',
   placeholder: '',
+  className: '',
 };
 
 TextInput.propTypes = {
@@ -36,6 +46,7 @@ TextInput.propTypes = {
   name: PropTypes.string.isRequired,
   placeholder: PropTypes.string,
   as: PropTypes.elementType,
+  className: PropTypes.string,
 };
 
 export default TextInput;
