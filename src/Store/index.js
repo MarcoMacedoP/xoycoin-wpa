@@ -1,20 +1,21 @@
 import { combineReducers, createStore } from 'redux';
 
-import tokenImage from 'Assets/token_icon.png';
 import ethIcon from 'Assets/ethereum_icon.png';
 import * as transfers from './Transfers';
 
+const tokens = JSON.parse(process.env.REACT_APP_TOKENS);
+
 const initialState = {
   currencys: [
-    {
-      id: '1',
-      name: 'XoyCoin',
-      type: 'XOY',
+    ...tokens.map((token, index) => ({
+      name: token.name,
+      type: token.alias,
+      image: `${process.env.PUBLIC_URL}/tokens/token-${index}.png`,
+      id: index.toString(),
       value: { original: '0.000000000', usd: '0.00' },
-      image: tokenImage,
-    },
+    })),
     {
-      id: '2',
+      id: tokens.length.toString(),
       type: 'ETH',
       value: { original: '---', usd: '---' },
       name: 'Ethereum',
