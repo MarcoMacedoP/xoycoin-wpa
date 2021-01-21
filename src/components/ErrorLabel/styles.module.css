@@ -1,0 +1,8 @@
+.label {
+  background-color: var(--color-error);
+  padding: 0.5rem;
+  color: white;
+  border-radius: 0.5rem;
+  font-size: 0.75rem;
+  opacity: 0.75;
+}

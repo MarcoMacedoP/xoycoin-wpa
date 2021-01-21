@@ -1,5 +1,7 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+
 import Navbar from 'Components/Navbar';
 import Button from 'Components/Button';
 import TextInput from 'Components/TextInput';
@@ -8,6 +10,8 @@ import PasswordValidationLabel from 'Views/Auth/Components/PasswordValidationLab
 import useQueryParams from 'Hooks/useQueryParams';
 import usePasswordValidation from 'Hooks/usePasswordValidation';
 
+import { createSeed, storePassword } from 'Libs/Wallet';
+import { setSeed } from 'Store/Auth';
 import styles from './styles.module.css';
 
 function SetPassword() {
@@ -15,14 +19,21 @@ function SetPassword() {
   const [step, setStep] = useState(0);
   const params = useQueryParams();
   const history = useHistory();
+  const dispatch = useDispatch();
   const action = params.get('action');
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (step === 0) {
       setStep(1);
-    } else {
-      history.push(`/auth/${action}`);
+      return;
     }
+    if (action === 'create') {
+      const seed = await createSeed({ password: values.password });
+      dispatch(setSeed(seed));
+    } else {
+      storePassword({ password: values.password });
+    }
+    history.push(`/auth/${action}`);
   };
 
   return (

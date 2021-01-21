@@ -10,7 +10,10 @@ import { findSelectedCurrency } from 'Store/Transfers/selectors';
 import styles from './styles.module.css';
 
 function CurrencyDetails() {
-  const currency = useSelector(findSelectedCurrency);
+  const { currency, address } = useSelector((state) => ({
+    currency: findSelectedCurrency(state),
+    address: state.auth.mainAddress,
+  }));
 
   if (!currency) return 'Currency not found';
 
@@ -29,7 +32,7 @@ function CurrencyDetails() {
         </div>
       </div>
       <section className={styles.address}>
-        <Clipboard text="0x09a5436b9b16937b5dbe8f7851c90d50102f2fbe " />
+        <Clipboard text={address} />
       </section>
       <section className={styles.actions}>
         <Button type="primary" label="Send" url="/transfers/set-quantity" />

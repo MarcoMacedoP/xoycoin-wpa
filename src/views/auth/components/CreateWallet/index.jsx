@@ -1,16 +1,15 @@
-import {
-  Switch,
-  Route,
-  useRouteMatch,
-  Redirect,
-  useHistory,
-} from 'react-router-dom';
-import { useState } from 'react';
+import { Switch, Route, useRouteMatch, useHistory } from 'react-router-dom';
+import { useState, useMemo } from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+
 import Text from 'Components/Text';
+import ErrorLabel from 'Components/ErrorLabel';
 import Button from 'Components/Button';
 import Navbar from 'Components/Navbar';
 import TextInput from 'Components/TextInput';
+
+import useStatus from 'Hooks/useStatus';
 
 import webcamImage from 'Assets/webcam.png';
 import backupImage from 'Assets/backup.png';
@@ -19,20 +18,11 @@ import styles from './styles.module.css';
 
 function CreateWallet() {
   const match = useRouteMatch();
-  const seed = [
-    'digital',
-    'cargo',
-    'wing',
-    'output',
-    'welcome',
-    'lens',
-    'burst',
-    'choice',
-    'funny',
-    'seed',
-    'rain',
-    'jar',
-  ];
+  const { seed } = useSelector((state) => ({
+    seed: state.auth.seed.split(' '),
+  }));
+
+  console.log({ seed });
 
   return (
     <>
@@ -47,12 +37,9 @@ function CreateWallet() {
         <Route path={`${match.path}/backup`}>
           <Backup path={match.path} seed={seed} />
         </Route>
-        <Route path={`${match.path}/intro`}>
-          <Introduction path={match.path} />
-        </Route>
 
         <Route path={match.path}>
-          <Redirect to={`${match.path}/intro`} />
+          <Introduction path={match.path} />
         </Route>
       </Switch>
     </>
@@ -126,7 +113,7 @@ function BackupIntroduction({ path, seed }) {
         </Text>
         <div className={styles.phraseList}>
           {seed.map((phrase) => (
-            <PhraseWordButton>{phrase}</PhraseWordButton>
+            <PhraseWordButton key={phrase}>{phrase}</PhraseWordButton>
           ))}
         </div>
       </section>
@@ -143,6 +130,20 @@ BackupIntroduction.propTypes = {
 function Backup({ seed }) {
   const [text, setText] = useState('');
   const history = useHistory();
+  const status = useStatus();
+  const shuffleSeed = useMemo(() => {
+    const tempSeed = [...seed];
+    const n = tempSeed.length;
+    const tempArr = [];
+
+    for (let index = 0; index < n - 1; index++) {
+      tempArr.push(
+        tempSeed.splice(Math.floor(Math.random() * tempSeed.length), 1)[0]
+      );
+    }
+    tempArr.push(tempSeed[0]);
+    return tempArr;
+  }, [seed]);
 
   const canSubmit = text.split(' ').length === seed.length;
 
@@ -153,17 +154,36 @@ function Backup({ seed }) {
     const updatedText = updatedValues.toString().replace(/,/g, ' ');
     setText(updatedText);
   };
+
   const handleUnSelect = (phrase) => {
     const updatedText = text.replace(phrase, '');
+    if (status.current !== 'initial') {
+      status.change({ value: 'initial' });
+    }
     setText(updatedText);
   };
   const isPhraseInText = (phrase) => text.search(phrase) !== -1;
+
   const onSeedPress = (phrase) => {
     if (isPhraseInText(phrase)) handleUnSelect(phrase);
     else handleSelect(phrase);
   };
+
   const handleSubmit = () => {
-    history.push('/auth/loading');
+    let hasError = false;
+    const inputSeed = text.split(' ');
+    inputSeed.forEach((seedValue, index) => {
+      const hasDiferentValues = seed[index] !== seedValue;
+      if (hasDiferentValues) {
+        hasError = true;
+      }
+    });
+    if (!hasError) {
+      status.change({ value: 'success' });
+      history.push('/auth/loading');
+    } else {
+      status.change({ value: 'error', payload: 'Orden incorrecto' });
+    }
   };
 
   return (
@@ -178,8 +198,11 @@ function Backup({ seed }) {
           name="backup"
           label="Please enter the 12 mnemonic phrases in the correct order."
         />
+        {status.current === 'error' && (
+          <ErrorLabel>{status.payload}</ErrorLabel>
+        )}
         <div className={styles.phraseList}>
-          {seed.map((phrase) => (
+          {shuffleSeed.map((phrase) => (
             <PhraseWordButton
               key={phrase}
               onSelect={() => onSeedPress(phrase)}

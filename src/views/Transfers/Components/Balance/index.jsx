@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
@@ -6,6 +7,8 @@ import Text from 'Components/Text';
 import WalletIcon from 'Components/WalletIcon';
 
 import { setCurrencyToTransfer } from 'Store/Transfers/actions';
+import { setBalances } from 'Store/Currencys';
+import { getBalances } from 'Libs/Wallet';
 
 import headerBackground from 'Assets/balance_background.png';
 import brandLogo from 'Assets/logo_mini.png';
@@ -14,12 +17,26 @@ import styles from './styles.module.css';
 
 function Balance() {
   const history = useHistory();
-  const currencys = useSelector((state) => state.currencys);
   const dispatch = useDispatch();
+  const { currencys, mainAddress } = useSelector((state) => ({
+    currencys: state.currencys,
+    mainAddress: state.auth.mainAddress,
+  }));
+
   const onCurrencyPress = (id) => {
     dispatch(setCurrencyToTransfer(id));
     history.push('/transfers/currency');
   };
+
+  useEffect(() => {
+    const fetchBalances = async () => {
+      const balances = await getBalances({ address: mainAddress });
+      console.log({ balances });
+      dispatch(setBalances({ eth: balances.payload.eth }));
+    };
+    fetchBalances();
+  }, []);
+
   return (
     <section className={styles.container}>
       <Header />
