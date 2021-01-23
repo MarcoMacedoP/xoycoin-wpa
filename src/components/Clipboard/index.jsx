@@ -3,8 +3,18 @@ import Text from 'Components/Text';
 import styles from './styles.module.css';
 
 function Clipboard({ text }) {
+  const handleClick = () => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        console.log('Async: Copying to clipboard was successful!');
+      },
+      (err) => {
+        console.error('Async: Could not copy text: ', err);
+      }
+    );
+  };
   return (
-    <button className={styles.container} type="button">
+    <button className={styles.container} type="button" onClick={handleClick}>
       <Text type="small" className={styles.content}>
         {text}
       </Text>

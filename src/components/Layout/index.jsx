@@ -32,7 +32,7 @@ export function ComposedLayout({
         <Navbar title={title} canGoBack={canGoBack} headerRight={headerRight} />
       )}
       <main className={contentClassName}>{children}</main>
-      {footer && <footer>{footer}</footer>}
+      {footer && <footer>{footer()}</footer>}
     </div>
   );
 }
@@ -52,7 +52,7 @@ ComposedLayout.propTypes = {
   hasNavbar: PropTypes.bool,
   canGoBack: PropTypes.bool,
   contentClassName: PropTypes.string,
-  footer: PropTypes.element,
+  footer: PropTypes.func,
   headerRight: PropTypes.func,
 };
 

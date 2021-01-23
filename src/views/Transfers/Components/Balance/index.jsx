@@ -5,10 +5,13 @@ import PropTypes from 'prop-types';
 
 import Text from 'Components/Text';
 import WalletIcon from 'Components/WalletIcon';
+import Loader from 'Components/Loader';
 
 import { setCurrencyToTransfer } from 'Store/Transfers/actions';
 import { setBalances } from 'Store/Currencys';
 import { getBalances } from 'Libs/Wallet';
+
+import useStatus from 'Hooks/useStatus';
 
 import headerBackground from 'Assets/balance_background.png';
 import brandLogo from 'Assets/logo_mini.png';
@@ -18,6 +21,8 @@ import styles from './styles.module.css';
 function Balance() {
   const history = useHistory();
   const dispatch = useDispatch();
+  const status = useStatus();
+
   const { currencys, mainAddress } = useSelector((state) => ({
     currencys: state.currencys,
     mainAddress: state.auth.mainAddress,
@@ -28,34 +33,42 @@ function Balance() {
     history.push('/transfers/currency');
   };
 
+  const fetchBalances = async () => {
+    status.change({ value: 'loading' });
+    const balances = await getBalances({ address: mainAddress });
+    console.log({ balances });
+    status.change({ value: balances.status, payload: balances.status });
+    dispatch(setBalances({ eth: balances.payload.eth }));
+  };
+
   useEffect(() => {
-    const fetchBalances = async () => {
-      const balances = await getBalances({ address: mainAddress });
-      console.log({ balances });
-      dispatch(setBalances({ eth: balances.payload.eth }));
-    };
     fetchBalances();
   }, []);
 
   return (
     <section className={styles.container}>
-      <Header />
-      <div className={styles.currencys}>
-        {currencys.map((currency) => (
-          <Currency
-            onClick={() => onCurrencyPress(currency.id)}
-            image={currency.image}
-            name={currency.name}
-            value={currency.value}
-            type={currency.type}
-            key={currency.id}
-          />
-        ))}
-      </div>
+      <Header onUpdate={fetchBalances} />
+      {status.current === 'loading' ? (
+        <Loader />
+      ) : (
+        <div className={styles.currencys}>
+          {currencys.map((currency) => (
+            <Currency
+              onClick={() => onCurrencyPress(currency.id)}
+              image={currency.image}
+              name={currency.name}
+              value={currency.value}
+              type={currency.type}
+              key={currency.id}
+            />
+          ))}
+        </div>
+      )}
     </section>
   );
 }
-function Header() {
+
+function Header({ onUpdate }) {
   return (
     <header
       className={styles.header}
@@ -85,9 +98,14 @@ function Header() {
         0.00
         <span className={styles.cashSymbol}>$</span>
       </Text>
+      <button type="button" className={styles.update} onClick={onUpdate}>
+        Update
+      </button>
     </header>
   );
 }
+Header.propTypes = { onUpdate: PropTypes.func.isRequired };
+
 function Currency({ image, name, value, type, onClick }) {
   return (
     <button type="button" onClick={onClick} className={styles.currency}>

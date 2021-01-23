@@ -2,6 +2,10 @@
   background-color: green;
 }
 
+.containerError {
+  background-color: var(--color-error);
+}
+
 .content {
   display: flex;
   flex-direction: column;

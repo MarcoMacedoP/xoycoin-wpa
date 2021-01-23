@@ -1,30 +1,68 @@
+import PropTypes from 'prop-types';
+
 import styles from './styles.module.css';
 
-function NumericKeyboard() {
+function NumericKeyboard({ value, onChange }) {
+  const handleKeyClick = (key) => {
+    if (value === null) {
+      onChange(key);
+      return;
+    }
+    const updatedValue = `${value}${key}`;
+    onChange(updatedValue);
+  };
+
+  const handleDelete = () => {
+    const updatedValue = value.slice(0, value.length - 1);
+    onChange(updatedValue);
+  };
+
+  const handleDotClick = () => {
+    const hasDot = /[.]/g.test(value);
+    if (hasDot) {
+      return;
+    }
+    handleKeyClick('.');
+  };
+
   const rows = [
     ['1', '2', '3'],
     ['4', '5', '6'],
     ['7', '8', '9'],
   ];
+
   return (
     <div className={styles.container}>
       {rows.map((row) => (
         <section className={styles.row} key={row[0]}>
           {row.map((key) => (
-            <button key={key} type="button" className={styles.number}>
+            <button
+              key={key}
+              type="button"
+              className={styles.number}
+              onClick={() => handleKeyClick(key)}
+            >
               {key}
             </button>
           ))}
         </section>
       ))}
       <section className={styles.row}>
-        <button type="button" className={styles.number}>
+        <button
+          type="button"
+          className={styles.number}
+          onClick={handleDotClick}
+        >
           .
         </button>
-        <button type="button" className={styles.number}>
+        <button
+          type="button"
+          className={styles.number}
+          onClick={() => handleKeyClick('0')}
+        >
           0
         </button>
-        <button type="button" className={styles.number}>
+        <button type="button" className={styles.number} onClick={handleDelete}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -40,4 +78,9 @@ function NumericKeyboard() {
     </div>
   );
 }
+
+NumericKeyboard.propTypes = {
+  value: PropTypes.string.isRequired,
+  onChange: PropTypes.func.isRequired,
+};
 export default NumericKeyboard;

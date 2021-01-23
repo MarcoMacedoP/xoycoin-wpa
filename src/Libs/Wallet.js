@@ -46,7 +46,6 @@ export async function getBalances({ address }) {
       },
     }
   ).then((r) => r.json());
-  console.log('inicializacion', initialization);
   Object.keys(initialization).forEach((prop) => {
     /* eslint no-prototype-builtins: 0 */
     if (initialization.hasOwnProperty(prop) && erc20.hasOwnProperty(prop)) {
@@ -61,6 +60,29 @@ export async function getBalances({ address }) {
     ]);
 
     return { status: 'success', payload: { eth: ethBalance, tokenBalance } };
+  } catch (error) {
+    return { status: 'error', payload: error };
+  }
+}
+
+export async function sendETH({
+  quantity,
+  fees,
+  address,
+  destination,
+  password,
+}) {
+  try {
+    const result = await erc20.sendETH(
+      password,
+      address,
+      destination,
+      quantity,
+      fees.gasPrice,
+      fees.gasLimit
+    );
+
+    return { status: 'success', payload: result };
   } catch (error) {
     return { status: 'error', payload: error };
   }
