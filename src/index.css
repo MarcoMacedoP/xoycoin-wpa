@@ -3,7 +3,7 @@
    License: none (public domain)
 */
 
-html, body, div, span, applet, object, iframe,
+ body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
 del, dfn, em, img, ins, kbd, q, s, samp,
@@ -46,15 +46,24 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-/** App global styles **/
+
+/*********************
+ *
+ * App global styles 
+ *
+ *********************/
+
 html {
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
     --color-gray: #cfd8dc;
     --color-gray-dark: #575555;
     --color-primary: #3E79F8;
     --color-secondary: #DA7220;
-
+    --color-error: #ff0033;
+    --navbar-height: 3rem;
     color: var(--color-gray-dark);
 }
 button, input[type="submit"], input[type="reset"] {
@@ -65,5 +74,11 @@ button, input[type="submit"], input[type="reset"] {
 	font: inherit;
 	cursor: pointer;
 	outline: inherit;
+}
+.page-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: calc(100vh - 4rem - var(--navbar-height));
 }
 strong { font-weight: bold; }  

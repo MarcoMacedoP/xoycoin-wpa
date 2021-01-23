@@ -1,0 +1,30 @@
+.container {
+  padding: 1rem 1rem 1rem 0;
+  width: 100%;
+  margin-bottom: 2rem;
+  background-color: var(--color-gray);
+  box-shadow: 2px 7px 10px -1px rgba(0, 0, 0, 0.4);
+  box-sizing: border-box;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+  display: flex;
+  align-items: center;
+}
+.icon {
+  width: 5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info {
+  width: 70%;
+  box-sizing: border-box;
+}
+.info p {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  width: 100%;
+}
+.info p:first-child {
+  margin-bottom: 0.3rem;
+}

@@ -1,0 +1,37 @@
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.logo {
+  width: 3rem;
+  height: 3rem;
+  object-fit: contain;
+  margin-bottom: 1.5rem;
+}
+.valueInToken {
+  margin-bottom: 0.5rem;
+}
+.valueInUSD {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.valueInUSD strong {
+  margin-right: 0.5rem;
+}
+.address {
+  display: flex;
+  justify-content: center;
+  margin: 2rem 0;
+}
+
+.actions {
+  display: flex;
+}
+.actions button:first-child {
+  margin-right: 0.5rem;
+}

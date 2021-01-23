@@ -1,0 +1,17 @@
+.container {
+  background-color: green;
+}
+
+.containerError {
+  background-color: var(--color-error);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.content p {
+  color: white;
+}

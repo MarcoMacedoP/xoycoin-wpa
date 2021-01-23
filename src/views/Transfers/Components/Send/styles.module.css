@@ -1,0 +1,32 @@
+.send {
+  background-color: var(--color-gray);
+  padding: 1.2rem 1.2rem 0.75rem;
+  border-radius: 0.5rem;
+  margin-top: 1rem;
+}
+.send:focus-within {
+  border: 1px solid var(--color-primary);
+}
+.send input {
+  outline: none !important;
+}
+.sendTitle {
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+.range {
+  margin: 1rem 0;
+}
+.range input {
+  width: 100%;
+}
+.rangeIndicator {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 0.5rem;
+}
+.rangeIndicator button {
+  color: var(--color-gray-dark);
+  opacity: 0.5;
+}

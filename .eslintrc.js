@@ -20,6 +20,9 @@ module.exports = {
     },
   },
   rules: {
+    'no-plusplus': 0,
+    'operator-linebreak': 0,
+    'no-shadow': 0,
     'react/prop-types': 1,
     'react/jsx-filename-extension': 0,
     'prettier/prettier': 'error',
